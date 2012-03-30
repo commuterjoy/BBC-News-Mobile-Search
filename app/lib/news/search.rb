@@ -28,9 +28,6 @@ module News
               'term' => doc.css('#topicTitle').inner_html
           }
           
-          puts data['thumb'].size
-          puts data['thumb'].inspect      
-          
           return data
 
       rescue
