@@ -1,91 +1,63 @@
 <html>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <meta http-equiv="cleartype" content="on">
+    <style>
+    @import '/css/search.css';
+    </style>
+</head>
+<body>
+    <img src="http://static.responsivenews.co.uk/img/logo.png" id="logo"/>
+    <div id="page">
+        <p class="about">Unofficial BBC Mobile search. Content unavailble prior to 1st March 2012 or thereabouts.</p>
+    
+        <div id="search">
+            <form action="/news/search" method="get">
+                <input type="search" id="q" name="q" results="5" value="<%= (@term) ? @term : '' %>">
+                <input type="submit" value="Go">
+            </form>
+        </div>
 
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-<meta http-equiv="cleartype" content="on">
+        <div id="fav">
+         <p id="favourite">Save this search.</p>
+         <p id="favourite-list"></p>
+         <p id="favourite-clear">Clear saved searches.</p>
+        </div>
 
+        <% if @search %>
 
-<style>
-body {  font-family: Helmet, Freesans, sans-serif;
-        padding: 8px;
-        font-size: 14px;
-        margin:10px 5px 20px 5px;
-    }
-#page{
-    width:99%;
-    margin:0px auto;
-    text-align:left;
-}
-a { text-decoration: none; }
-.newsDateTime { display: block; color: #999; font-size: 12px; }
-ul, li { list-style: none; line-height: 140%; margin-left: 0; padding-left: 0px; }
-li { padding-bottom: 10px; }
-li p { margin-top: 2px; }
-input { font-size: 14px; }
-input[type=search] { width: 80%; max-width: 200px; }
-#nextback { position: relative; padding-top: 10px; border-top: 1px solid #999; }
-#nextback .next { position: absolute; right: 0; }
-#logo { width: 15%; max-width: 100px;  position: absolute; top: 1px; right: 1px;  }
-.about { width: 80%; min-height: 35px; }
+         <ul>
+            <% @search['links'].each_with_index do |link, i| %>
+              <% if (/href="([0-9a-z]+)/.match(link)) then %>
+                <li>
+                    <%= @search['datetime'][i] %>
+                    <%= link.gsub!('href="', 'href="http://m.bbc.co.uk/news/') %>
+                    <%= @search['about'][i] %>
+                </li>
+              <% end %>
+            <% end %>
+         </ul>
 
-#fav { border-left: 1px solid #000; padding-left: 5px; } 
-#favourite:hover { cursor: hand; }
-#favourite, #favourite-clear { color: blue; font-size: 12px; }
-#favourite-list a { display: inline-block; margin-right: 4px; padding: 1 4px 1 4px; background-color: #ff9; }
-</style>
+         <div id="nextback">
+            <% if (@search['previous'] || (@search['next'].to_s == "page=3")) then %>
+                <a class="back" href="search?q=<%= @search['term'] %>&amp;<%= (@search['previous']) ? @search['previous'] : 'page=1' %>">Previous</a>
+            <% end %>
 
-<img src="http://static.responsivenews.co.uk/img/logo.png" id="logo"/>
+            <% if (@search['next']) then %>
+                <a class="next" href="search?q=<%= @search['term'] %>&amp;<%= @search['next'] %>">Next</a>
+            <% end %>
+         </div>
 
-<div id="page">
+        <% else %>
 
-<p class="about">Unofficial BBC Mobile search. Content unavailble prior to 1st March 2012 or thereabouts.</p>
+         <p>'<%= @term %>' not found.</p>
 
-<div id="search">
-    <form action="/news/search" method="get">
-        <input type="search" id="q" name="q" results="5" value="<%= (@term) ? @term : '' %>">
-        <input type="submit" value="Go">
-    </form>
-</div>
-
-<div id="fav">
- <p id="favourite">Save this search.</p>
- <p id="favourite-list"></p>
- <p id="favourite-clear">Clear saved searches.</p>
-</div>
-
-<% if @search %>
-
-    <ul>
-        <% @search['links'].each_with_index do |link, i| %>
-          <% if (/href="([0-9a-z]+)/.match(link)) then %>
-            <li>
-                <%= @search['datetime'][i] %>
-                <%= link.gsub!('href="', 'href="http://m.bbc.co.uk/news/') %>
-                <%= @search['about'][i] %>
-            </li>
-          <% end %>
-        <% end %>
-    </ul>
-
-
-    <div id="nextback">
-        <% if (@search['previous'] || (@search['next'].to_s == "page=3")) then %>
-            <a class="back" href="search?q=<%= @search['term'] %>&amp;<%= (@search['previous']) ? @search['previous'] : 'page=1' %>">Previous</a>
         <% end %>
 
-        <% if (@search['next']) then %>
-            <a class="next" href="search?q=<%= @search['term'] %>&amp;<%= @search['next'] %>">Next</a>
-        <% end %>
     </div>
-
-<% else %>
-
-    <p>'<%= @term %>' not found.</p>
-
-<% end %>
-
-</div>
-
-<script type="application/javascript" src="/js/local_storage.js"></script>
+    <script type="application/javascript" src="/js/local_storage.js"></script>
+</body>
+</html>
 
 
