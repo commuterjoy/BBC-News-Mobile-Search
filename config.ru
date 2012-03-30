@@ -2,7 +2,7 @@
 require 'rubygems'
 require 'sinatra'
 
-require 'app/lib/news/search.rb'
-require 'app/controllers/search.rb'
+require 'lib/news/search.rb'
+require 'controllers/search.rb'
 
 run Mobile
