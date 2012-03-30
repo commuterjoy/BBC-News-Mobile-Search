@@ -2,11 +2,7 @@
 require 'rubygems'
 require 'sinatra'
 
-# lib's
-Dir.glob('app/lib/news/*.rb').each { |f| require f }
-Dir.glob('app/lib/*.rb').each { |f| require f }
-
-# app
-Dir.glob('app/controllers/*.rb').each { |f| require f }
+require 'app/lib/news/search.rb'
+require 'app/controllers/search.rb'
 
 run Mobile
