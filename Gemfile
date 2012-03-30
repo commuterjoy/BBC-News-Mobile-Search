@@ -1,8 +1,8 @@
 
 source :rubygems
 
-require 'sinatra'
-require 'nokogiri
-require 'ruby-gd
-require 'ruby-readability
+gem 'sinatra'
+gem 'nokogiri
+gem 'ruby-gd
+gem 'ruby-readability
 
