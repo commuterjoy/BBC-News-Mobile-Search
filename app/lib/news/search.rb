@@ -16,25 +16,29 @@ class Search
         uri = @uri % [URI.escape(term), page]
         doc = Nokogiri::HTML(open(uri))
 
-        @page = /page=([0-9]+)/.match(doc.css('#next').first[:href]).captures.first.to_i
+        @page = (doc.css('#next').first) ? /page=([0-9]+)/.match(doc.css('#next').first[:href]).captures.first.to_i : 0
+        
+        
+        if (doc.css('#news-content .linktrack-item').first) then
+            results = doc.css('#news-content .linktrack-item').collect do |item|
+                link = item.css('a.title').first
+                text = item.css('.details p').first
+                date = item.css('.details .newsDateTime').first
 
-        results = doc.css('#news-content .linktrack-item').collect do |item|
-            link = item.css('a.title').first
-            text = item.css('.details p').first
-            date = item.css('.details .newsDateTime').first
+                result = OpenStruct.new
+                result.uri = link[:href].gsub!('http://www.bbc.co.uk/', '')
+                result.title = link.content
+                result.text = text.content
+                result.date = Time.parse(date[:class].gsub!('newsDateTime', '').strip!)
+                result.term = term
+                result
+            end
 
-            result = OpenStruct.new
-            result.uri = link[:href].gsub!('http://www.bbc.co.uk/', '')
-            result.title = link.content
-            result.text = text.content
-            result.date = Time.parse(date[:class].gsub!('newsDateTime', '').strip!)
-            result.term = term
-            result
+            @result = @result|results
+            @result = @result.sort_by { |item| item.date }.reverse # chronologically sort
+            @result = @result.uniq_by { |item| item.uri }
         end
 
-        @result = @result|results
-        @result = @result.sort_by { |item| item.date }.reverse # chronologically sort
-        @result = @result.uniq_by { |item| item.uri }
         @result
     end
 

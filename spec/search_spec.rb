@@ -20,6 +20,13 @@ describe Search do
         search.page.should eq(4) # 4th page
     end
 
+    it "should return no results for an empty serach result set" do
+        search = Search.new
+        search.fetch('adsgasdgadsg')
+        search.results.should have(0).things
+        search.page.should eq(0)
+    end
+
     it "should return uri, title, term and text for each result" do
         search = Search.new
         search.fetch('cats')
