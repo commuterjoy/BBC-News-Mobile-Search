@@ -13,8 +13,8 @@ class Search
 
     def fetch(term=nil, page=1)
 
-        @uri = @uri % [URI.escape(term), page]
-        doc = Nokogiri::HTML(open(@uri))
+        uri = @uri % [URI.escape(term), page]
+        doc = Nokogiri::HTML(open(uri))
 
         @page = /page=([0-9]+)/.match(doc.css('#next').first[:href]).captures.first.to_i
 
@@ -32,7 +32,7 @@ class Search
             result
         end
 
-        @result += results
+        @result = @result|results
         @result = @result.sort_by { |item| item.date }.reverse # chronologically sort
         @result
     end
