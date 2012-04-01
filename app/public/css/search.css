@@ -18,8 +18,8 @@ li { padding-bottom: 10px; }
 li p { margin-top: 2px; }
 input { font-size: 14px; }
 input[type=search] { width: 80%; max-width: 200px; }
-#nextback { position: relative; padding-top: 10px; border-top: 1px solid #999; }
-#nextback .next { position: absolute; right: 0; }
+#pagination { position: relative; padding-top: 10px; border-top: 1px solid #999; }
+#pagination .next { position: absolute; right: 0; }
 #logo { width: 15%; max-width: 100px;  position: absolute; top: 1px; right: 1px;  }
 .about { width: 80%; min-height: 35px; }
 

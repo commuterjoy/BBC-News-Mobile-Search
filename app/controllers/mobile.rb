@@ -33,6 +33,8 @@ class Mobile < Sinatra::Base
 
     @results = search.result
     @term = params[:q]
+    @page = search.page
+
     erb :search, :layout => false
   end
   

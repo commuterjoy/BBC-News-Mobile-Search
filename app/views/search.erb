@@ -48,6 +48,19 @@
 
         <% end %>
 
+        <div id="pagination">
+            <span>
+                <% if (@page > 2) then %>
+                    <a href="?q=<%= @term %>&page=<%= (@page - 2) %>">Previous</a>
+                <% end %>
+            </span>
+            <span class="next">
+                <% if (@page) then %>
+                    <a href="?q=<%= @term %>&page=<%= @page %>">Next</a>
+                <% end %>
+            </span>
+        </div>
+
     </div>
     <script type="application/javascript" src="/js/local_storage.js"></script>
 </body>
