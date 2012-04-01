@@ -9,7 +9,10 @@ body {  font-family: Helmet, Freesans, sans-serif;
     text-align:left;
 }
 a { text-decoration: none; }
-.newsDateTime { display: block; color: #999; font-size: 12px; }
+div { margin: 0; padding: 0; }
+p.date { display: inline-block; color: #999; font-size: 12px; padding: 0; margin: 0; }
+p.tag { display: inline-block; background-color: #ff9; font-size: 12px; padding: 0 2px;  margin: 0px; } 
+h2 { margin: 5px 0; }
 ul, li { list-style: none; line-height: 140%; margin-left: 0; padding-left: 0px; }
 li { padding-bottom: 10px; }
 li p { margin-top: 2px; }
