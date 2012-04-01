@@ -25,11 +25,8 @@ class Mobile < Sinatra::Base
   # search 
   get '/news/search' do
     page = (params[:page]) ? params[:page] : 1
-    @search = News::Search::fetch(params[:q], page.to_s)
+    @results = Search.new.fetch(params[:q].to_s, page.to_i)
     @term = params[:q]
-    if @search
-       @title = @search['title'].inner_text
-    end
     erb :search, :layout => false
   end
   
@@ -39,4 +36,3 @@ class Mobile < Sinatra::Base
   end
 
 end
-

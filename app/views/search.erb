@@ -25,29 +25,19 @@
          <p id="favourite-clear">Clear saved searches.</p>
         </div>
 
-        <% if @search %>
+        <% if @results %>
 
          <ul>
-            <% @search['links'].each_with_index do |link, i| %>
-              <% if (/href="([0-9a-z]+)/.match(link)) then %>
+            <% @results.each_with_index do |result, i| %>
                 <li>
-                    <%= @search['datetime'][i] %>
-                    <%= link.gsub!('href="', 'href="http://m.bbc.co.uk/news/') %>
-                    <%= @search['about'][i] %>
+                    <p><%= result.date.strftime("%d %B %Y") %></p>
+                    <h2><a href="http://m.bbc.co.uk/<%= result.uri %>"><%= result.title %></a></h2>
+                    <p>
+                        <%= result.text %>
+                    </p>
                 </li>
-              <% end %>
             <% end %>
          </ul>
-
-         <div id="nextback">
-            <% if (@search['previous'] || (@search['next'].to_s == "page=3")) then %>
-                <a class="back" href="search?q=<%= @search['term'] %>&amp;<%= (@search['previous']) ? @search['previous'] : 'page=1' %>">Previous</a>
-            <% end %>
-
-            <% if (@search['next']) then %>
-                <a class="next" href="search?q=<%= @search['term'] %>&amp;<%= @search['next'] %>">Next</a>
-            <% end %>
-         </div>
 
         <% else %>
 

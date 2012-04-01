@@ -21,7 +21,7 @@ class Search
             date = item.css('.details .newsDateTime').first
 
             result = OpenStruct.new
-            result.uri = link[:href]
+            result.uri = link[:href].gsub!('http://www.bbc.co.uk/', '')
             result.title = link.content
             result.text = text.content
             result.date = Time.parse(date[:class].gsub!('newsDateTime', '').strip!)
