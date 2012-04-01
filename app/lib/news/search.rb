@@ -7,12 +7,12 @@ class Search
     attr_accessor :uri, :result, :page
 
     def initialize
-      @uri = 'http://www.bbc.co.uk/search/news/?q=%s&page=1&text=on'
+      @uri = 'http://www.bbc.co.uk/search/news/?q=%s&page=%s&text=on'
     end
 
-    def fetch(term=nil)
+    def fetch(term=nil, page=1)
 
-        @uri = @uri % [URI.escape(term)]
+        @uri = @uri % [URI.escape(term), page]
         doc = Nokogiri::HTML(open(@uri))
 
         @result = doc.css('#news-content .linktrack-item').collect do |item|
@@ -28,7 +28,7 @@ class Search
             result
         end
 
-        @page = /page=([0-9]+)/.match(doc.css('#next').first[:href]).captures.first
+        @page = /page=([0-9]+)/.match(doc.css('#next').first[:href]).captures.first.to_i
 
         @result
     end

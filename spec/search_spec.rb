@@ -13,6 +13,13 @@ describe Search do
         search.results.should have(20).things
     end
 
+    it "should return a list of results from a specific page" do
+        search = Search.new
+        search.fetch('cats', 3)
+        search.results.should have(20).things
+        search.page.should eq(4)
+    end
+
     it "should return uri, title and text for each result" do
         search = Search.new
         search.fetch('cats')
@@ -22,7 +29,7 @@ describe Search do
     it "should return the number of the next page of search results" do
         search = Search.new
         search.fetch('cats')
-        search.page.should =~ /(\d)+/
+        search.page.should eq(2)
     end
 
 end
