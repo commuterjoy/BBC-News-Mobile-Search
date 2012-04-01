@@ -16,6 +16,8 @@ class Search
         @uri = @uri % [URI.escape(term), page]
         doc = Nokogiri::HTML(open(@uri))
 
+        @page = /page=([0-9]+)/.match(doc.css('#next').first[:href]).captures.first.to_i
+
         results = doc.css('#news-content .linktrack-item').collect do |item|
             link = item.css('a.title').first
             text = item.css('.details p').first
@@ -30,8 +32,8 @@ class Search
             result
         end
 
-        @page = /page=([0-9]+)/.match(doc.css('#next').first[:href]).captures.first.to_i
         @result += results
+        @result = @result.sort_by { |item| item.date }.reverse # chronologically sort
         @result
     end
 

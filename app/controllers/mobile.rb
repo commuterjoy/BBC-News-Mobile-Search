@@ -25,7 +25,13 @@ class Mobile < Sinatra::Base
   # search 
   get '/news/search' do
     page = (params[:page]) ? params[:page] : 1
-    @results = Search.new.fetch(params[:q].to_s, page.to_i)
+   
+    search = Search.new
+    params[:q].split(',').each do |term|
+        search.fetch(term, page.to_i)
+    end
+
+    @results = search.result
     @term = params[:q]
     erb :search, :layout => false
   end

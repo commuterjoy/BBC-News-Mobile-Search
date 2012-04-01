@@ -31,6 +31,7 @@
             <% @results.each_with_index do |result, i| %>
                 <li>
                     <p><%= result.date.strftime("%d %B %Y") %></p>
+                    <small><%= result.term %></small>
                     <h2><a href="http://m.bbc.co.uk/<%= result.uri %>"><%= result.title %></a></h2>
                     <p>
                         <%= result.text %>
