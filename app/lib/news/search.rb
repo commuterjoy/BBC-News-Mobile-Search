@@ -34,6 +34,7 @@ class Search
 
         @result = @result|results
         @result = @result.sort_by { |item| item.date }.reverse # chronologically sort
+        @result = @result.uniq_by { |item| item.uri }
         @result
     end
 
@@ -41,5 +42,17 @@ class Search
         (@result) ? @result : nil
     end
 
+end
+
+# http://stackoverflow.com/questions/109781/uniq-by-object-attribute-in-ruby
+class Array
+    def uniq_by(&blk)
+        transforms = []
+        self.select do |el|
+            should_keep = !transforms.include?(t=blk[el])
+         transforms << t
+         should_keep
+        end
+    end 
 end
 

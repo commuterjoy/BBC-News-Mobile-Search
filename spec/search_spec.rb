@@ -35,17 +35,24 @@ describe Search do
         search.page.should eq(2)
     end
 
-    it "should splice several searches in to a chronologically ordered list" do
+    it "should combine several searches in to a chronologically ordered list" do
         search = Search.new
         search.fetch('cats')
-        search.fetch('dogs')
+        search.fetch('mushrooms')
         search.results.should have(40).things
 
-        # chronology, cast each date to a number and check the orginal equals a sorted version
+        # chronology check
         original = search.results.map do |result|
             Time.now - result.date
         end
         original.should eq original.sort
+    end
+
+    it "should combine several searches and remove duplicates" do
+        search = Search.new
+        search.fetch('cats')
+        search.fetch('cats')
+        search.results.should have(20).things
     end
 
 end
