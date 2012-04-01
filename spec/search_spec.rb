@@ -55,7 +55,7 @@ describe Search do
         original.should eq original.sort
     end
 
-    it "should combine several searches and remove duplicates" do
+    it "should combine several searches and remove any duplicate results" do
         search = Search.new
         search.fetch('cats')
         search.fetch('cats')
