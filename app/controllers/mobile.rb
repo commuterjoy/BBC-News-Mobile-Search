@@ -27,7 +27,7 @@ class Mobile < Sinatra::Base
     page = (params[:page]) ? params[:page] : 1
    
     search = Search.new
-    params[:q].split(',').each do |term|
+    params[:q].split(/^|,/).each do |term|
         search.fetch(term, page.to_i)
     end
 
