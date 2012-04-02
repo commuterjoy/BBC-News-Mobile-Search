@@ -15,6 +15,8 @@ RSpec.configure do |config|
        stub_request(:get, "http://www.bbc.co.uk/search/news/?page=3&q=cats&text=on").to_return(:status => 200, :body => cats_3, :headers => {})
        stub_request(:get, "http://www.bbc.co.uk/search/news/?page=1&q=adsgasdgadsg&text=on").to_return(:status => 200, :body => adsgasdgadsg, :headers => {})
        stub_request(:get, "http://www.bbc.co.uk/search/news/?page=1&q=mushrooms&text=on").to_return(:status => 200, :body => mushrooms, :headers => {})
+       stub_request(:get, "http://www.bbc.co.uk/search/news/?page=1&q=onions&text=on").to_return(:status => 500, :body => '', :headers => {})
+
     }
 
 end

@@ -31,10 +31,10 @@ describe Search do
     it "should return uri, title, term, section and text for each result" do
         search = Search.new
         search.fetch('cats')
-        search.results.first.title.should_not be nil 
-        search.results.first.uri.should_not be nil 
-        search.results.first.text.should_not be nil 
-        search.results.first.term.should_not be nil
+        search.results.first.title.should == "In pictures: Mogadishu's fish market"
+        search.results.first.uri.should == 'news/in-pictures-17404466'
+        search.results.first.text.should include "where cats and children now play" 
+        search.results.first.section.should == "In Pictures" 
         search.results.first.term.should eq('cats')
     end
 
@@ -62,6 +62,11 @@ describe Search do
         search.fetch('cats')
         search.fetch('cats')
         search.results.should have(20).things
+    end
+
+    it "should gracefully handle errors from the BBC search API" do
+        search = Search.new
+        search.fetch('onions')
     end
 
 end
