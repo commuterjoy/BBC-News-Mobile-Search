@@ -1,4 +1,5 @@
 require 'app/lib/news/search.rb'
+require 'spec_helper.rb'
 
 describe Search do
 
@@ -27,12 +28,13 @@ describe Search do
         search.page.should eq(0)
     end
 
-    it "should return uri, title, term and text for each result" do
+    it "should return uri, title, term, section and text for each result" do
         search = Search.new
         search.fetch('cats')
         search.results.first.title.should_not be nil 
         search.results.first.uri.should_not be nil 
         search.results.first.text.should_not be nil 
+        search.results.first.term.should_not be nil
         search.results.first.term.should eq('cats')
     end
 
