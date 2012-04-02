@@ -40,7 +40,7 @@ class Mobile < Sinatra::Base
   
   # default
   get '/' do
-    redirect '/news/search?q=cats'
+    redirect '/news/search?q=internet'
   end
 
 end
