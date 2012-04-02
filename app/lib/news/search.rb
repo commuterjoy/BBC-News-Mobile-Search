@@ -20,6 +20,7 @@ class Search
         
         
         if (doc.css('#news-content .linktrack-item').first) then
+
             results = doc.css('#news-content .linktrack-item').collect do |item|
                 link = item.css('a.title').first
                 text = item.css('.details p').first
@@ -30,6 +31,7 @@ class Search
                 result.title = link.content
                 result.text = text.content
                 result.date = Time.parse(date[:class].gsub!('newsDateTime', '').strip!)
+                result.section = item.css('.details .newsSection').first.content.gsub!(/(\s+\/.+)/, '')
                 result.term = term
                 result
             end
