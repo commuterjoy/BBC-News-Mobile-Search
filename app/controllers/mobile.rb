@@ -13,7 +13,7 @@ class Mobile < Sinatra::Base
 
   after do  
     headers['Cache-Control'] = 'public, max-age=60'
-    headers['Content-Type'] = 'text/html'
+    headers['Content-Type'] = 'text/html;charset=UTF-8'
   end
   
 # ----------- helpers
