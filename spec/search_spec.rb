@@ -83,4 +83,12 @@ describe Search do
 
 end
 
+describe String do
+
+    it "should ignore case when highlighting terms" do
+        "the Cats the cats".highlight include "the <b>Cats</b> the <b>cats</b>"
+    end
+
+end
+
 

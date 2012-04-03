@@ -75,6 +75,6 @@ end
 
 class String
     def highlight(term)
-       self.gsub!(term, "<b>#{term}</b>")
+       self.gsub!(/#{term}/i, "<b>#{term}</b>")
     end
 end
