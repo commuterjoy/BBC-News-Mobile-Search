@@ -75,6 +75,12 @@ describe Search do
         search.results.first.text.should include "where <b>cats</b> and children" 
     end
 
+    it "should highlight multiple searched term in the results text" do
+        search = Search.new
+        search.fetch('the')
+        search.results.first.text include "called <b>the</b> most dangerous city in <b>the</b>"
+    end
+
 end
 
 
