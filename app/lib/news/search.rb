@@ -36,7 +36,7 @@ class Search
             result = OpenStruct.new
             result.uri = link[:href].gsub!('http://www.bbc.co.uk/', '')
             result.title = link.content
-            result.text = text.content
+            result.text = text.content.highlight @term
             result.date = Time.parse(date[:class].gsub!('newsDateTime', '').strip!)
             result.section = item.css('.details .newsSection').first.content.gsub!(/(\s+\/.+)/, '')
             result.term = @term
@@ -73,3 +73,8 @@ class Array
     end 
 end
 
+class String
+    def highlight(term)
+       self.gsub!(term, "<b>#{term}</b>")
+    end
+end
