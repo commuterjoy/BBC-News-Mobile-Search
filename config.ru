@@ -1,6 +1,7 @@
 
 require 'rubygems'
 require 'sinatra'
+require 'maruku'
 
 root = ::File.dirname(__FILE__)
 

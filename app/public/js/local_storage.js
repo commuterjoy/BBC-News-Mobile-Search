@@ -1,5 +1,6 @@
 
 var ls = function() {
+
     this.id = 'history';
 
     this.fetch = function(){
@@ -39,23 +40,25 @@ var ls = function() {
     }
 }
 
-var store = new ls();
+if (window.localStorage)
+{
+    var store = new ls();
 
-function render(){
-    document.getElementById('favourite-list').innerHTML = store.render();
+    function render(){
+        document.getElementById('favourite-list').innerHTML = store.render();
+    }
+
+    render();
+
+    document.getElementById('favourite-clear').addEventListener('click', function(){
+        store.clear();
+        render();
+        }, false);
+
+    document.getElementById('favourite').addEventListener('click', function(){
+        var term = document.getElementById('q').value;
+        store.add(term);
+        render();
+        }, false);
 }
-
-render();
-
-document.getElementById('favourite-clear').addEventListener('click', function(){
-    store.clear();
-    render();
-    }, false);
-
-document.getElementById('favourite').addEventListener('click', function(){
-    var term = document.getElementById('q').value;
-    store.add(term);
-    render();
-    }, false);
-
 

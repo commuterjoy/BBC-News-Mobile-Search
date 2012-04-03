@@ -13,6 +13,7 @@ class Mobile < Sinatra::Base
 
   after do  
     headers['Cache-Control'] = 'public, max-age=60'
+    headers['Content-Type'] = 'text/html'
   end
   
 # ----------- helpers
@@ -37,7 +38,12 @@ class Mobile < Sinatra::Base
 
     erb :search, :layout => false
   end
-  
+ 
+  get '/readme' do
+    @about = Maruku.new(IO.read('app/public/about'))
+    erb :about, :layout => false
+  end
+
   # default
   get '/' do
     redirect '/news/search?q=internet'

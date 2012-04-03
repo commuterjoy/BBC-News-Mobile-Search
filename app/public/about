@@ -1,0 +1,16 @@
+
+About
+-----
+
+This is a simple facility to search the BBC's Responsive News site. The BBC site has no search facility.
+
+Like with any other search system, you can type a word or phrase in to the search field and it will return some relevent results, chronologically ordered.
+
+As a bonus feature you can type a *comma seperated* list of terms and the results will be merged.
+
+You can *save search terms* for subsequent visits by hitting 'save this search'.
+
+More
+----
+
+- [code on github](https://github.com/commuterjoy/BBC-News-Mobile-Search) 

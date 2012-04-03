@@ -10,7 +10,7 @@
 <body>
     <img src="http://static.responsivenews.co.uk/img/logo.png" id="logo"/>
     <div id="page">
-        <p class="about">Unofficial BBC Mobile search. Content unavailble prior to 1st March 2012 or thereabouts.</p>
+        <p class="about">Unofficial BBC Mobile search. Content unavailble prior to 1st March 2012 or thereabouts. <a href="/readme">Learn more</a>.</p>
     
         <div id="search">
             <form action="/news/search" method="get">
@@ -43,13 +43,9 @@
             <% end %>
          </ul>
 
-        <% else %>
+         <% if @page %>
 
-         <p>'<%= @term %>' not found.</p>
-
-        <% end %>
-
-        <div id="pagination">
+         <div id="pagination">
             <span>
                 <% if (@page > 2) then %>
                     <a href="?q=<%= @term %>&page=<%= (@page - 2) %>">Previous</a>
@@ -60,7 +56,15 @@
                     <a href="?q=<%= @term %>&page=<%= @page %>">Next</a>
                 <% end %>
             </span>
-        </div>
+         </div>
+
+        <% end %>
+
+        <% else %>
+
+         <p>'<%= @term %>' not found.</p>
+
+        <% end %>
 
     </div>
     <script type="application/javascript" src="/js/local_storage.js"></script>
